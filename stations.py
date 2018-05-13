@@ -14,6 +14,17 @@ def get_stations(conn):
         returndata.append(dict_from_row(row))
     return returndata
 
+def get_station(conn, code):
+    conn.row_factory = sqlite3.Row
+    c = conn.cursor()
+    params = (code.upper(),)
+    rows = c.execute("SELECT * FROM stations WHERE code = ? LIMIT 1", params)
+    returndata = False
+    for row in rows:
+        returndata = dict_from_row(row)
+    
+    return returndata
+
 def nearest_stations(conn, lat, lon, max_entries):
     sd = get_stations(conn)
     lat1 = radians(lat)

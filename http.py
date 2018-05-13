@@ -31,3 +31,13 @@ def nearest():
         return json.dumps({"status": "NOK", "error": "value_max"})
     
     return json.dumps(stations.nearest_stations(db, lat, lon, max_stations))
+
+
+@app.route("/station/<station>/")
+def getstation(station):
+    db = sqlite3.connect('data/db.sqlite')
+    station = stations.get_station(db, station)
+    if station is False:
+        return json.dumps({"status": "NOK", "error": "NOT_FOUND"})
+    
+    return json.dumps({"status": "OK", "station": station})
