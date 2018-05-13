@@ -1,15 +1,22 @@
 import argparse
 import xmltodict
 import sqlite3
+import json
+import requests
+from requests.auth import HTTPBasicAuth
 
 parser = argparse.ArgumentParser(description="importeert stationsxml naar sqlite")
-parser.add_argument("db", help="sqlite databaselocatie")
-parser.add_argument("xml", help="stations xmlfile")
+parser.add_argument("-d", "--db", dest="db", help="sqlite databaselocatie", default="data/db.sqlite")
+parser.add_argument("-c", "--credentials", dest="credentials", help="location of credentials", default="ns-credentials.json")
+
 
 args = parser.parse_args()
+with open(args.credentials) as data_file:    
+    credentials = json.load(data_file)
 
-with open(args.xml, 'r') as myfile:
-    xml=myfile.read()
+r = requests.get('https://webservices.ns.nl/ns-api-stations-v2', auth=(credentials['user'], credentials['pass']))
+
+xml = r.text 
 
 stations = xmltodict.parse(xml)
 
