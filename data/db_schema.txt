@@ -1,0 +1,15 @@
+CREATE TABLE stations(
+"code" TEXT PRIMARY KEY UNIQUE,
+"type" TEXT,
+"name_short" TEXT,
+"name_medium" TEXT,
+"name_long" TEXT,
+"country_code" TEXT,
+"uic" TEXT,
+"lat" REAL,
+"lon" REAL,
+"synonym_1" TEXT DEFAULT NULL,
+"synonym_2" TEXT DEFAULT NULL,
+"synonym_3" TEXT DEFAULT NULL,
+"synonym_4" TEXT DEFAULT NULL
+);
