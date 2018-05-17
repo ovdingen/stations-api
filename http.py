@@ -18,7 +18,7 @@ def nearest():
     lon = request.args.get('lon')
     max_stations = request.args.get('max_entries')
     if max_stations is None:
-        max_stations = 3
+        max_stations = 5
     try:
         lat = float(lat)
         lon = float(lon)
